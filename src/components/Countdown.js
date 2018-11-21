@@ -1,8 +1,16 @@
 import React from 'react'
 
 const Countdown = (props) =>
-  <div>
-    <h1>New Year is coming up soon!</h1>
-  </div>
-
+  <section className="hero is-success is-fullheight">
+    <div className="hero-body">
+      <div className="container">
+        <h1 className="title">
+          Fullheight title
+        </h1>
+        <h2 className="subtitle">
+          Fullheight subtitle
+        </h2>
+      </div>
+    </div>
+  </section>
 export default Countdown
