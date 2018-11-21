@@ -4,7 +4,10 @@ import Countdown from './Countdown'
 class App extends Component {
   render() {
     return (
-      <h1>Welcome to the React</h1>
+      <div>
+        <h1>Welcome to the React</h1>
+        <Countdown />
+      </div>
     )
   }
 }
