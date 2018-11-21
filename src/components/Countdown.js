@@ -1,6 +1,23 @@
 import React, {Component} from 'react'
 
 export default class Countdown extends Component {
+  constructor(props) {
+    super(props)
+
+    this.getRemainingTime()
+
+    // this.state = {
+    //   interval: this.getRemainingTime()
+    // }
+  }
+
+  getRemainingTime() {
+    let now = new Date,
+        newYear = new Date(now.getFullYear() + 1, 0, 1)
+
+    console.log(now, newYear)
+  }
+
   render() {
     return (
       <section className="hero is-info is-bold is-fullheight has-text-centered">
