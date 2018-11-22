@@ -7,8 +7,10 @@ export default class Countdown extends Component {
     super(props)
 
     this.state = {
-      duration: this.getRemainingTime()
+      duration: this.getRemainingTime(),
+      paused: false
     }
+    this.togglePaused = this.togglePaused.bind(this)
   }
 
   componentDidMount() {
@@ -31,8 +33,28 @@ export default class Countdown extends Component {
     return moment.duration(diff)
   }
 
+  togglePaused() {
+    this.setState((prevState, props) => {
+      const paused = !prev.paused
+
+      if (paused) {
+        clearInterval(this.interval)
+      } else {
+        this.interval = setInterval(() => {
+          this.setState({
+            duration: this.getRemainingTime()
+          })
+        }, 1000)
+      }
+
+      return {
+        paused
+      }
+    })
+  }
+
   render() {
-    const { duration } = this.state
+    const { duration, paused } = this.state
     return (
       <section className="hero is-dark is-bold is-fullheight has-text-centered">
         <div className="hero-body">
@@ -68,7 +90,7 @@ export default class Countdown extends Component {
                 </div>
               </nav>
             </section>
-            <Controls/>
+            <Controls paused={paused} onPausedToggle={this.togglePaused}/>
           </div>
         </div>
       </section>
