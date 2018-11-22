@@ -35,7 +35,7 @@ export default class Countdown extends Component {
 
   togglePaused() {
     this.setState((prevState, props) => {
-      const paused = !prev.paused
+      const paused = !prevState.paused
 
       if (paused) {
         clearInterval(this.interval)
