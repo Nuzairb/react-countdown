@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import moment from 'moment'
+import Controls from './Controls'
 
 export default class Countdown extends Component {
   constructor(props) {
@@ -33,13 +34,13 @@ export default class Countdown extends Component {
   render() {
     const { duration } = this.state
     return (
-      <section className="hero is-info is-bold is-fullheight has-text-centered">
+      <section className="hero is-dark is-bold is-fullheight has-text-centered">
         <div className="hero-body">
           <div className="container">
             <h1 className="title">
               New Year is coming Up!
             </h1>
-            <div className="section">
+            <section className="section">
               <nav className="level">
                 <div className="level-item has-text-centered">
                   <div>
@@ -66,7 +67,8 @@ export default class Countdown extends Component {
                   </div>
                 </div>
               </nav>
-            </div>
+            </section>
+            <Controls/>
           </div>
         </div>
       </section>
