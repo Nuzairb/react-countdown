@@ -10,7 +10,7 @@ export default class Countdown extends Component {
       duration: this.getRemainingTime(),
       paused: false
     }
-    this.togglePaused = this.togglePaused.bind(this)
+    // this.handlePausedToggle = this.handlePausedToggle.bind(this)
   }
 
   componentDidMount() {
@@ -33,7 +33,7 @@ export default class Countdown extends Component {
     return moment.duration(diff)
   }
 
-  togglePaused() {
+  handlePausedToggle = () => {
     this.setState((prevState, props) => {
       const paused = !prevState.paused
 
@@ -90,7 +90,7 @@ export default class Countdown extends Component {
                 </div>
               </nav>
             </section>
-            <Controls paused={paused} onPausedToggle={this.togglePaused}/>
+            <Controls paused={paused} onPausedToggle={this.handlePausedToggle}/>
           </div>
         </div>
       </section>
