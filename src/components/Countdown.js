@@ -14,15 +14,11 @@ export default class Countdown extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => {
-      this.setState({
-        duration: this.getRemainingTime()
-      })
-    }, 1000)
+    this.resume()
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval)
+    this.pause()
   }
 
   getRemainingTime() {
@@ -38,19 +34,27 @@ export default class Countdown extends Component {
       const paused = !prevState.paused
 
       if (paused) {
-        clearInterval(this.interval)
+        this.pause()
       } else {
-        this.interval = setInterval(() => {
-          this.setState({
-            duration: this.getRemainingTime()
-          })
-        }, 1000)
+        this.resume()
       }
 
       return {
         paused
       }
     })
+  }
+
+  pause() {
+    clearInterval(this.interval)
+  }
+
+  resume() {
+    this.interval = setInterval(() => {
+      this.setState({
+        duration: this.getRemainingTime()
+      })
+    }, 1000)
   }
 
   render() {
