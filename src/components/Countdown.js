@@ -10,7 +10,6 @@ export default class Countdown extends Component {
       duration: this.getRemainingTime(),
       paused: false
     }
-    // this.handlePausedToggle = this.handlePausedToggle.bind(this)
   }
 
   componentDidMount() {
@@ -70,27 +69,27 @@ export default class Countdown extends Component {
               <nav className="level">
                 <div className="level-item has-text-centered">
                   <div>
-                    <p className="heading">Days</p>
                     <p className="title">{Math.floor(duration.asDays())}</p>
-                  </div>
+                    <p className="heading">Days</p>
+                </div>
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                    <p className="heading">Hours</p>
                     <p className="title">{duration.hours().toString().padStart(2, '0')}</p>
-                  </div>
+                    <p className="heading">Hours</p>
+                </div>
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                    <p className="heading">Minutes</p>
                     <p className="title">{duration.minutes().toString().padStart(2, '0')}</p>
-                  </div>
+                    <p className="heading">Minutes</p>
+                </div>
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                    <p className="heading">Seconds</p>
                     <p className="title">{duration.seconds().toString().padStart(2, '0')}</p>
-                  </div>
+                    <p className="heading">Seconds</p>
+                </div>
                 </div>
               </nav>
             </section>
