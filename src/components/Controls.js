@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Controls = (props) =>
-  <div className="field is-grouped">
+  <div className="field is-grouped is-grouped-centered">
     <p className="control">
       <a className="button is-danger is-outlined is-rounded">
         Pause
