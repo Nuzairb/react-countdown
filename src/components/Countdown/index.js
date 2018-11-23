@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import '../../vendors/moment-holiday-us.min'
 
 import Timer from './Timer'
 import Controls from './Controls'
-
+import Datepicker from './Datepicker'
+import HolidaysModal from './HolidaysModal'
 
 export default class extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      duration: this.getRemainingTime(),
-      paused: false
-    }
+  state = {
+    currentDate: moment(),
+    nextDate: moment().endOf('year'),
+    paused: false,
+    showHolidays: false
   }
 
   componentDidMount() {
@@ -24,16 +24,15 @@ export default class extends Component {
   }
 
   getRemainingTime() {
-    let now = moment(),
-        newYear = moment({year: now.year() + 1}),
-        diff = newYear.diff(now)
+    let {currentDate, nextDate} = this.state,
+        diff = nextDate.diff(currentDate)
 
     return moment.duration(diff)
   }
 
   handlePausedToggle = () => {
-    this.setState((prevState, props) => {
-      const paused = !prevState.paused
+    this.setState(({paused}, props) => {
+      paused = !paused
 
       if (paused) {
         this.pause()
@@ -41,9 +40,13 @@ export default class extends Component {
         this.resume()
       }
 
-      return {
+      const nextState = {
         paused
       }
+
+      !paused && (nextState.currentDate = moment())
+
+      return nextState
     })
   }
 
@@ -54,26 +57,66 @@ export default class extends Component {
   resume() {
     this.interval = setInterval(() => {
       this.setState({
-        duration: this.getRemainingTime()
+        currentDate: moment()
       })
     }, 1000)
   }
+
+  handleDateReset = nextDate => {
+    this.setState({
+      nextDate
+    })
+  }
+
+  handleHolidaysToggle = () => {
+    this.setState({
+      showHolidays: !this.state.showHolidays
+    })
+  }
+
+  getHolidays() {
+    const {currentDate, nextDate} = this.state
+
+    return currentDate.holidaysBetween(nextDate)
+  }
+
   render() {
-    const { duration, paused } = this.state
-    return (
-      <section className="hero is-dark is-bold is-fullheight has-text-centered">
-        <div className="hero-body">
-          <div className="container">
-            <h1 className="title">
-              New Year is coming Up!
-            </h1>
-            <section className="section">
-              <Timer duration={duration}/>
-            </section>
-            <Controls paused={paused} onPausedToggle={this.handlePausedToggle}/>
-          </div>
+    const { paused, currentDate, nextDate, showHolidays } = this.state,
+          duration = this.getRemainingTime(),
+          holidays = this.getHolidays()
+
+    return <section className="hero is-dark is-bold is-fullheight has-text-centered">
+      <div className="hero-body">
+        <div className="container">
+          <h1 className="title">
+            {nextDate.calendar()} is Coming Up!
+            <button
+              className="button is-small is-rounded is-light is-outlined"
+              style={{margin: '5px 0 0 10px'}}
+              onClick={this.handleHolidaysToggle}>
+                Holidays
+            </button>
+          </h1>
+
+          <section className="section">
+            <Timer duration={duration}/>
+          </section>
+
+          <Datepicker onDateReset={this.handleDateReset}/>
+
+          <Controls paused={paused} onPausedToggle={this.handlePausedToggle}/>
+
+          <section className="section">
+            <i>{currentDate.format('dddd, MMMM Do, YYYY, HH:mm A (UTCZ)')}</i>
+          </section>
+
+          <HolidaysModal
+            holidays={holidays}
+            active={showHolidays}
+            onToggle={this.handleHolidaysToggle}
+          />
         </div>
-      </section>
-    )
+      </div>
+    </section>
   }
 }
