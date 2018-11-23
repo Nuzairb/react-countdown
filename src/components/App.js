@@ -1,12 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Countdown from './Countdown'
 
-class App extends Component {
-  render() {
-    return (
-      <Countdown />
-    )
-  }
-}
-
-export default App
+export default props => <Countdown/>
