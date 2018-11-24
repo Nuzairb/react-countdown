@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import '../../vendors/moment-holiday-us.min'
-
 import Timer from './Timer'
 import Controls from './Controls'
 import Datepicker from './Datepicker'
